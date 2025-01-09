@@ -6,10 +6,11 @@ export default function Page() {
     <>
       <Header />
       <div className="bg-white-700 mx-auto my-5 w-[98%] h-[480px]">
-        <MapWrapper posix={[4.79029, -75.69003]} />
+        <MapWrapper />
       </div>
     </>
   );
 }
+
 
 
