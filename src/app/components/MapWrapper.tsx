@@ -18,20 +18,24 @@ const initialPositions: [number, number][] = [[40.7015, -74.01222]];
 export default function MapWrapper() {
   const [positions, setPositions] = useState(initialPositions);
   const [openModal, setOpenModal] = useState(false);
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
 
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
 
-  const addMarker = () => {
-    const lastMarker = positions[positions.length - 1];
-    const newMarker: [number, number] = [
-      lastMarker[0] + 0.01,
-      lastMarker[1] + 0.01,
-    ];
-    setPositions((prev) => [...prev, newMarker]);
-  };
+  const handleLatitudeChange = (event) => setLatitude(event.target.value);
+  const handleLongitudeChange = (event) => setLongitude(event.target.value);
 
-  const submitGpsData = () => {}
+  const addMarker = () => {
+    if (!latitude || !longitude) return;
+
+    const newMarker: [number, number] = [parseFloat(latitude), parseFloat(longitude)];
+    setPositions((prev) => [...prev, newMarker]);
+    setOpenModal(false);
+    setLatitude("");
+    setLongitude("");
+  };
 
   return (
     <div className="h-full w-full">
@@ -72,7 +76,7 @@ export default function MapWrapper() {
             <TextField
               id="outlined-basic"
               label="Latitude"
-              // color="success"
+              onChange={handleLatitudeChange}
               sx={{
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": {
@@ -96,7 +100,7 @@ export default function MapWrapper() {
             <TextField
               id="outlined-basic"
               label="Longitude"
-              // color="success"
+              onChange={handleLongitudeChange}
               sx={{
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": {
@@ -143,7 +147,7 @@ export default function MapWrapper() {
               }}
             />
           </div>
-          <Avatar className="mt-4 hover:cursor-pointer" onClick={submitGpsData}>
+          <Avatar className="mt-4 hover:cursor-pointer" onClick={addMarker}>
             <AddIcon />
           </Avatar>
         </div>
