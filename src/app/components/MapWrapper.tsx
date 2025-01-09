@@ -3,7 +3,10 @@
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
-import Modal from '@mui/material/Modal';
+import Modal from "@mui/material/Modal";
+import TextField from "@mui/material/TextField";
+import Avatar from '@mui/material/Avatar';
+import AddIcon from '@mui/icons-material/Add';
 
 const Map = dynamic(() => import("./Map"), {
   loading: () => <p>A map is loading...</p>,
@@ -28,13 +31,15 @@ export default function MapWrapper() {
     setPositions((prev) => [...prev, newMarker]);
   };
 
+  const submitGpsData = () => {}
+
   return (
-    <div className="h-full w-full"> 
+    <div className="h-full w-full">
       <Map markers={positions} />
 
       <button
         onClick={handleOpen}
-        className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded transition-colors duration-200" 
+        className="mt-4 px-4 py-2 hover:bg-slate-600 text-white rounded transition-colors duration-200"
       >
         <AddLocationIcon className="text-xl m-1" />
         Add marker
@@ -46,7 +51,7 @@ export default function MapWrapper() {
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        <div 
+        <div
           className="
             fixed 
             top-1/2 
@@ -60,8 +65,87 @@ export default function MapWrapper() {
           "
         >
           {/* Your modal content here */}
-          <h2 id="modal-title" className="text-lg font-semibold mb-2">Modal Title</h2>
-          <p id="modal-description" className="text-gray-500">Some description of the modal.</p>
+          <h2 id="modal-title" className="text-lg font-semibold mb-2">
+            Input your GPS data
+          </h2>
+          <div className="grid md:grid-cols-2 gap-4">
+            <TextField
+              id="outlined-basic"
+              label="Latitude"
+              // color="success"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "white", // Border color
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "white", // Hover border color
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white", // Focused border color
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "white", // Label color
+                },
+                "& .MuiOutlinedInput-input": {
+                  color: "white", // Input text color
+                },
+              }}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Longitude"
+              // color="success"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "white", // Border color
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "white", // Hover border color
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white", // Focused border color
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "white", // Label color
+                },
+                "& .MuiOutlinedInput-input": {
+                  color: "white", // Input text color
+                },
+              }}
+            />
+            <TextField
+              id="outlined-basic"
+              label="Name"
+              className="md:col-span-2"
+              // color="success"
+              sx={{
+                "& .MuiOutlinedInput-root": {
+                  "& fieldset": {
+                    borderColor: "white", // Border color
+                  },
+                  "&:hover fieldset": {
+                    borderColor: "white", // Hover border color
+                  },
+                  "&.Mui-focused fieldset": {
+                    borderColor: "white", // Focused border color
+                  },
+                },
+                "& .MuiInputLabel-root": {
+                  color: "white", // Label color
+                },
+                "& .MuiOutlinedInput-input": {
+                  color: "white", // Input text color
+                },
+              }}
+            />
+          </div>
+          <Avatar className="mt-4 hover:cursor-pointer" onClick={submitGpsData}>
+            <AddIcon />
+          </Avatar>
         </div>
       </Modal>
     </div>
