@@ -18,7 +18,9 @@ interface MarkerData {
   name: string;
 }
 
-const initialPositions: MarkerData[] = [{position: [40.7015, -74.01222], name: "Initial Marker"}];
+const initialPositions: MarkerData[] = [
+  { position: [40.7015, -74.01222], name: "Initial Marker" },
+];
 
 export default function MapWrapper() {
   const [positions, setPositions] = useState(initialPositions);
@@ -30,9 +32,12 @@ export default function MapWrapper() {
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
 
-  const handleLatitudeChange = (event: React.ChangeEvent<HTMLInputElement>) => setLatitude(event.target.value);
-  const handleLongitudeChange = (event: React.ChangeEvent<HTMLInputElement>) => setLongitude(event.target.value);
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => setMarkerName(event.target.value);
+  const handleLatitudeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setLatitude(event.target.value);
+  const handleLongitudeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setLongitude(event.target.value);
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setMarkerName(event.target.value);
 
   const addMarker = () => {
     if (!latitude || !longitude) return;
@@ -167,7 +172,17 @@ export default function MapWrapper() {
       </Modal>
       <div className="pt-3 border-t-2">
         <h1 className="text-xl font-sans">All markers</h1>
-        <div className="grid grid-cols-4"></div>
+        <div className="grid grid-cols-4 gap-4">
+          {positions.map((marker, index) => (
+            <div
+              key={index}
+              className="flex items-center justify-between p-2"
+            >
+              <p className="font-medium">{marker.name}</p>
+              <p className="text-gray-300">{`Lat: ${marker.position[0]}, Lng: ${marker.position[1]}`}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
