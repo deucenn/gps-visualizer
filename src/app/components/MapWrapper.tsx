@@ -30,9 +30,9 @@ export default function MapWrapper() {
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
 
-  const handleLatitudeChange = (event) => setLatitude(event.target.value);
-  const handleLongitudeChange = (event) => setLongitude(event.target.value);
-  const handleNameChange = (event) => setMarkerName(event.target.value);
+  const handleLatitudeChange = (event: React.ChangeEvent<HTMLInputElement>) => setLatitude(event.target.value);
+  const handleLongitudeChange = (event: React.ChangeEvent<HTMLInputElement>) => setLongitude(event.target.value);
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => setMarkerName(event.target.value);
 
   const addMarker = () => {
     if (!latitude || !longitude) return;
