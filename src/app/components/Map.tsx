@@ -1,9 +1,9 @@
 "use client";
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import MarkerData from "./MapWrapper"
 
 // Fix for Leaflet's default icons
 const iconPrototype = L.Icon.Default.prototype as L.Icon & {
@@ -20,13 +20,14 @@ L.Icon.Default.mergeOptions({
 });
 
 interface MapProps {
-  markers: LatLngExpression[];
+  markers: typeof MarkerData[];
 }
+
 
 const Map = ({ markers }: MapProps) => {
   return (
     <MapContainer
-      center={markers[0]} // Center the map on the first marker
+      center={markers[0]?.position} // Center the map on the first marker
       zoom={13}
       scrollWheelZoom={true}
       style={{ height: "100%", width: "100%" }}
@@ -35,9 +36,9 @@ const Map = ({ markers }: MapProps) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {markers.map((position, index) => (
-        <Marker key={index} position={position}>
-          <Popup>Marker #{index + 1}</Popup>
+      {markers.map((marker, index) => (
+        <Marker key={index} position={marker.position}>
+          <Popup>Marker #{index + 1} - {marker.name}</Popup>
         </Marker>
       ))}
     </MapContainer>

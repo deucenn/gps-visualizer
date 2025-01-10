@@ -5,36 +5,49 @@ import dynamic from "next/dynamic";
 import AddLocationIcon from "@mui/icons-material/AddLocation";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
-import Avatar from '@mui/material/Avatar';
-import AddIcon from '@mui/icons-material/Add';
+import Avatar from "@mui/material/Avatar";
+import AddIcon from "@mui/icons-material/Add";
 
 const Map = dynamic(() => import("./Map"), {
   loading: () => <p>A map is loading...</p>,
   ssr: false,
 });
 
-const initialPositions: [number, number][] = [[40.7015, -74.01222]];
+interface MarkerData {
+  position: [number, number];
+  name: string;
+}
+
+const initialPositions: MarkerData[] = [{position: [40.7015, -74.01222], name: "Initial Marker"}];
 
 export default function MapWrapper() {
   const [positions, setPositions] = useState(initialPositions);
   const [openModal, setOpenModal] = useState(false);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
+  const [markerName, setMarkerName] = useState("");
 
   const handleOpen = () => setOpenModal(true);
   const handleClose = () => setOpenModal(false);
 
   const handleLatitudeChange = (event) => setLatitude(event.target.value);
   const handleLongitudeChange = (event) => setLongitude(event.target.value);
+  const handleNameChange = (event) => setMarkerName(event.target.value);
 
   const addMarker = () => {
     if (!latitude || !longitude) return;
 
-    const newMarker: [number, number] = [parseFloat(latitude), parseFloat(longitude)];
+    const newMarker: MarkerData = {
+      position: [parseFloat(latitude), parseFloat(longitude)],
+      name: markerName,
+    };
+
     setPositions((prev) => [...prev, newMarker]);
     setOpenModal(false);
     setLatitude("");
     setLongitude("");
+    setMarkerName("");
+    handleClose();
   };
 
   return (
@@ -125,7 +138,8 @@ export default function MapWrapper() {
               id="outlined-basic"
               label="Name"
               className="md:col-span-2"
-              // color="success"
+              value={markerName}
+              onChange={handleNameChange}
               sx={{
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": {
