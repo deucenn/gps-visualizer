@@ -51,7 +51,7 @@ export default function MapWrapper() {
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full font-sans">
       <Map markers={positions} />
 
       <button
@@ -81,7 +81,6 @@ export default function MapWrapper() {
             p-6 
           "
         >
-          {/* Your modal content here */}
           <h2 id="modal-title" className="text-lg font-semibold mb-2">
             Input your GPS data
           </h2>
@@ -166,6 +165,10 @@ export default function MapWrapper() {
           </Avatar>
         </div>
       </Modal>
+      <div className="pt-3 border-t-2">
+        <h1 className="text-xl font-sans">All markers</h1>
+        <div className="grid grid-cols-4"></div>
+      </div>
     </div>
   );
 }
