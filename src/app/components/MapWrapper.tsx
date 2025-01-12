@@ -224,7 +224,7 @@ export default function MapWrapper() {
         >
           <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-800 rounded-lg shadow-md p-6">
             <h2 id="modal-title" className="text-lg font-semibold mb-2">
-              Do you really want to delete the marker "{deleteMarker?.name}"?
+              Do you really want to delete the marker {deleteMarker?.name}?
             </h2>
             <div className="flex justify-end mt-4">
               <button

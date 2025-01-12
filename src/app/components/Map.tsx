@@ -23,7 +23,6 @@ interface MapProps {
   markers: typeof MarkerData[];
 }
 
-
 const Map = ({ markers }: MapProps) => {
   return (
     <MapContainer
