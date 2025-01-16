@@ -7,7 +7,9 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Avatar from "@mui/material/Avatar";
 import AddIcon from "@mui/icons-material/Add";
+import ShapeLineIcon from '@mui/icons-material/ShapeLine';
 import { Snackbar } from "@mui/material";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const Map = dynamic(() => import("./Map"), {
   loading: () => <p>A map is loading...</p>,
@@ -24,7 +26,7 @@ const initialPositions: MarkerData[] = [
 ];
 
 export default function MapWrapper() {
-  const [positions, setPositions] = useState(initialPositions);
+  const [positions, setPositions] = useLocalStorage('gpsData', initialPositions);;
   const [openModal, setOpenModal] = useState(false);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
@@ -91,10 +93,16 @@ export default function MapWrapper() {
 
       <button
         onClick={handleOpen}
-        className="mt-4 px-4 py-2 hover:bg-slate-600 text-white rounded transition-colors duration-200"
+        className="mt-4 px-4 py-2 hover:bg-slate-600 text-white rounded transition-colors duration-200 mr-2"
       >
         <AddLocationIcon className="text-xl m-1" />
         Add marker
+      </button>
+      <button
+        className="mt-4 px-4 py-2 hover:bg-slate-600 text-white rounded transition-colors duration-200"
+      >
+        <ShapeLineIcon className="text-xl m-1" />
+        Add shape
       </button>
 
       <Modal
@@ -200,7 +208,7 @@ export default function MapWrapper() {
           </Avatar>
         </div>
       </Modal>
-      <div className="pt-3 border-t-2">
+      <div className="pt-3 border-t-2 mt-4">
         <h1 className="text-xl font-sans">All markers</h1>
         <div className="grid grid-cols-1 gap-4 w-1/2">
           {positions.map((marker, index) => (
